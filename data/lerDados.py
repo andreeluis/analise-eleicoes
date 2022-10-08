@@ -18,32 +18,30 @@ def LerDados():
 
     query = '''
         SELECT DISTINCT
-            NM_TIPO_ELEICAO,
+            DS_ELEICAO,
             NR_TURNO,
-            CD_ELEICAO,
-            DT_ELEICAO,
-            SG_UE,
-            NM_UE,
-            CD_MUNICIPIO,
+            SG_UF,
             NM_MUNICIPIO,
             NR_ZONA,
             NR_SECAO,
-            CD_CARGO,
-            DS_CARGO,
+            DS_CARGO_PERGUNTA,
+            NR_PARTIDO,
             NR_VOTAVEL,
             NM_VOTAVEL,
             QT_VOTOS,
-            NR_LOCAL_VOTACAO
+            SG_PARTIDO,
+            QT_APTOS,
+            QT_COMPARECIMENTO,
+            QT_ABSTENCOES
         FROM
             Votos'''
 
     if zona == '' and secao == '':
-        if(input("Gostaria de mostrar todos os dados? (s/n) ") == 's'):
-            pass    
-        else:
+        if(input("Gostaria de mostrar todos os dados? (s/n) ") == 'n'):
             LerDados()
+        else:
+            print("Mostrando dados de todas as zonas e de todas seções.")
 
-        print("Mostrando dados de todas as zonas e de todas seções.")
     elif zona != '' and secao == '':
         print(f"Mostrando dados da(s) zona(s): {zona} e de todas as seções.")
         query += f'''\nWHERE NR_ZONA in ({zona})
@@ -60,13 +58,14 @@ def LerDados():
             AND NR_SECAO in ({secao})
             ORDER BY NR_ZONA, NR_SECAO'''
 
-    connection=sqlite3.connect('votacaoMG.db')
+    connection=sqlite3.connect('votacao.db')
     curosr=connection.cursor()
 
     curosr.execute(query)
-    rows = curosr.fetchall()
+    nomeColunas = [col[0] for col in curosr.description]
 
-    escreverDados.EscreverDados(rows)
+    dados = curosr.fetchall()
+    escreverDados.EscreverDados(nomeColunas, dados)
 
     
 

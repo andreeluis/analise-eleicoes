@@ -1,4 +1,3 @@
-import imp
 import time
 import data.popularBanco as popularBanco
 import data.lerDados as lerDados
@@ -21,7 +20,7 @@ def menu():
     elif opcao == 1:
         clearConsole.Clear()
         startTime = time.time()
-        popularBanco.popularBanco(caminho.LeituraCSV())
+        popularBanco.popularBanco(caminho.LerCSV())
         print(f"Tempo de execução: {time.time() - startTime:.2f} segundos")
         input("Pressione qualquer tecla para continuar...")
     elif opcao == 2:

@@ -1,7 +1,9 @@
+from dataclasses import replace
 import _utils.definirCaminhos as definirCaminhos
 import csv
 
-def EscreverDados(rows):
+def EscreverDados(nomeColunas, dados):
     with open(str(definirCaminhos.EscreverCSV()), 'w') as csvfile:
-        for row in rows:
-            csv.writer(csvfile, delimiter=',').writerow([row])
+        csv.writer(csvfile, delimiter=',', escapechar = ',', quoting = csv.QUOTE_NONE).writerow(nomeColunas)
+        for row in dados:
+            csv.writer(csvfile, delimiter=',', escapechar = ',', quoting = csv.QUOTE_NONE).writerow(row)

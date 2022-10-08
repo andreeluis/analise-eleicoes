@@ -11,7 +11,7 @@ def LerCSV():
     print("\n\t0 - Sair\n")
 
     # Caminho padrão
-    caminho = "votacaoMG.csv"
+    caminho = "votacao.csv"
 
     opcao = int(input("Digite a opção desejada: "))
     if opcao == 0:
@@ -25,11 +25,11 @@ def LerCSV():
         else:
             print("Caminho inválido!")
             time.sleep(1)
-            LeituraCSV()
+            LerCSV()
     else:
         print("Opção inválida!")
         time.sleep(1)
-        LeituraCSV()
+        LerCSV()
 
 def EscreverCSV():
     clearConsole.Clear()
